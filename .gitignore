@@ -1,0 +1,59 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+
+# Virtual Environment
+venv/
+env/
+ENV/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Data (optionnel - décommenter si vous ne voulez pas versionner les données)
+# dataset/*.csv
+
+# Modèles entraînés (fichiers volumineux)
+models/*.pkl
+models/*.joblib
+models/*.h5
+
+# Résultats et rapports
+reports/figures/*.png
+reports/figures/*.jpg
+reports/figures/*.pdf
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
