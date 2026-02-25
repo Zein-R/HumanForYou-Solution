@@ -2,8 +2,8 @@
 
 **Version** : 2.0  
 **Date** : Février 2026  
-**Projet** : FISA INFO 2023-2026 - BLOC VIII IA & Machine Learning  
-**Auteur** : Data Science Team - HumanForYou Analytics
+**Projet** : IA & Machine Learning  
+**Auteur** : Zein, Saheen, Téo, Noan
 
 ---
 
