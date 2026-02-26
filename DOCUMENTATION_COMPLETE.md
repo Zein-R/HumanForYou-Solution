@@ -1,4 +1,4 @@
-# 📚 Documentation Complète - Analyse de l'Attrition HumanForYou
+﻿# Documentation Complète - Analyse de l'Attrition HumanForYou
 
 **Version** : 2.0  
 **Date** : Février 2026  
@@ -27,10 +27,10 @@ Ce projet d'analyse de données RH vise à identifier les facteurs clés d'attri
 
 ### Objectifs
 
-- 🔍 Analyser les patterns d'attrition à partir de données 2015-2016
-- 🤖 Développer des modèles prédictifs performants et interprétables
-- 📊 Identifier les TOP 5 facteurs influençant le départ des employés
-- 💡 Proposer des recommandations actionnables pour améliorer la rétention
+- Analyser les patterns d'attrition à partir de données 2015-2016
+- Développer des modèles prédictifs performants et interprétables
+- Identifier les TOP 5 facteurs influençant le départ des employés
+- Proposer des recommandations actionnables pour améliorer la rétention
 
 ### Contexte Business
 
@@ -76,16 +76,16 @@ HumanForYou Solution/
 │   ├── in_time.csv
 │   └── out_time.csv
 │
-├── Employee_Attrition_Analysis.ipynb        # ⭐ Notebook principal
+├── Employee_Attrition_Analysis.ipynb        # [PRINCIPAL] Notebook principal
 │   │
 │   ├── Section 1: Configuration
 │   ├── Section 2: Chargement et Fusion
 │   ├── Section 3: EDA (Analyse Exploratoire)
 │   ├── Section 4: Feature Engineering
 │   │
-│   ├── Section 5: Préparation (Split Tardif) ❌ Avec data leakage
-│   ├── Section 5bis: Préparation (Split Précoce) ✅ Best Practice
-│   ├── Section 5ter: Comparaison Méthodologique ✅ Analyse
+│   ├── Section 5: Préparation (Split Tardif) [ATTENTION] Avec data leakage
+│   ├── Section 5bis: Préparation (Split Précoce) [BEST PRACTICE]
+│   ├── Section 5ter: Comparaison Méthodologique [ANALYSE]
 │   │
 │   ├── Section 6: Modélisation (7 algorithmes)
 │   ├── Section 7: Optimisation
@@ -93,7 +93,7 @@ HumanForYou Solution/
 │   ├── Section 9: Recommandations Business
 │   └── Section 10: Conclusion
 │
-├── DOCUMENTATION_COMPLETE.md                 # 📘 Ce document
+├── DOCUMENTATION_COMPLETE.md                 # Ce document
 ├── requirements.txt                          # Dépendances Python
 │
 └── Scripts de correction/
@@ -137,7 +137,7 @@ HumanForYou Solution/
 
 ## 2.1 Flux de Données - Comparaison des Approches
 
-### ❌ Approche 1: Split Tardif (Section 5) - Avec Data Leakage
+### [ATTENTION] Approche 1: Split Tardif (Section 5) - Avec Data Leakage
 
 ```
 ┌─────────────────────────────────────────────────────────┐
@@ -146,13 +146,13 @@ HumanForYou Solution/
 └─────────────────────────────────────────────────────────┘
                         ↓
 ┌─────────────────────────────────────────────────────────┐
-│  🚨 ÉTAPE 2: Imputation (SUR TOUT LE DATASET)          │
+│  [ALERTE] ÉTAPE 2: Imputation (SUR TOUT LE DATASET)          │
 │  Calcul médiane/mode sur 4410 lignes                    │
 │  → Inclut les données du futur test set!                │
 └─────────────────────────────────────────────────────────┘
                         ↓
 ┌─────────────────────────────────────────────────────────┐
-│  🚨 ÉTAPE 3: Encodage (SUR TOUT LE DATASET)            │
+│  [ALERTE] ÉTAPE 3: Encodage (SUR TOUT LE DATASET)            │
 │  LabelEncoder.fit() sur 4410 lignes                     │
 │  → L'encodeur voit toutes les catégories!               │
 └─────────────────────────────────────────────────────────┘
@@ -164,7 +164,7 @@ HumanForYou Solution/
 └─────────────────────────────────────────────────────────┘
                         ↓
 ┌─────────────────────────────────────────────────────────┐
-│  ✅ ÉTAPE 5: Standardisation + SMOTE (CORRECT)         │
+│  [OUI] ÉTAPE 5: Standardisation + SMOTE (CORRECT)         │
 │  Fit sur train, transform sur test                      │
 └─────────────────────────────────────────────────────────┘
                         ↓
@@ -173,7 +173,7 @@ HumanForYou Solution/
 └─────────────────────────────────────────────────────────┘
 ```
 
-### ✅ Approche 2: Split Précoce (Section 5bis) - Best Practice
+### [OUI] Approche 2: Split Précoce (Section 5bis) - Best Practice
 
 ```
 ┌─────────────────────────────────────────────────────────┐
@@ -182,25 +182,25 @@ HumanForYou Solution/
 └─────────────────────────────────────────────────────────┘
                         ↓
 ┌─────────────────────────────────────────────────────────┐
-│  ✅ ÉTAPE 2: Split IMMÉDIAT (AVANT transformations)    │
+│  [OUI] ÉTAPE 2: Split IMMÉDIAT (AVANT transformations)    │
 │  Train: 3528 (80%) | Test: 882 (20%)                    │
 │  → Séparation complète dès le départ                    │
 └─────────────────────────────────────────────────────────┘
                         ↓
 ┌─────────────────────────────────────────────────────────┐
-│  ✅ ÉTAPE 3: Imputation (FIT train, TRANSFORM test)    │
+│  [OUI] ÉTAPE 3: Imputation (FIT train, TRANSFORM test)    │
 │  Médiane/mode calculés sur train uniquement             │
 │  → Test n'influence PAS les statistiques                │
 └─────────────────────────────────────────────────────────┘
                         ↓
 ┌─────────────────────────────────────────────────────────┐
-│  ✅ ÉTAPE 4: Encodage (FIT train, TRANSFORM test)      │
+│  [OUI] ÉTAPE 4: Encodage (FIT train, TRANSFORM test)      │
 │  LabelEncoder fit sur train uniquement                  │
 │  → Gestion des catégories inconnues                     │
 └─────────────────────────────────────────────────────────┘
                         ↓
 ┌─────────────────────────────────────────────────────────┐
-│  ✅ ÉTAPE 5: Standardisation + SMOTE                   │
+│  [OUI] ÉTAPE 5: Standardisation + SMOTE                   │
 │  Toutes transformations basées sur train                │
 └─────────────────────────────────────────────────────────┘
                         ↓
@@ -217,8 +217,8 @@ HumanForYou Solution/
 
 ```python
 # Données préparées
-df_clean          # Après imputation (4410 lignes) - ❌ Leakage
-df_encoded        # Après encodage (4410 lignes) - ❌ Leakage
+df_clean          # Après imputation (4410 lignes) - [NON] Leakage
+df_encoded        # Après encodage (4410 lignes) - [NON] Leakage
 
 # Après split et transformations
 X_train_scaled, X_test_scaled     # Standardisés
@@ -276,19 +276,19 @@ comparison_df                     # Fusion + différences calculées
 
 #### Justification
 
-✅ **Médiane vs Moyenne** : La médiane est plus robuste aux outliers, particulièrement important pour MonthlyIncome ou Age qui peuvent avoir des valeurs extrêmes.
+[OUI] **Médiane vs Moyenne** : La médiane est plus robuste aux outliers, particulièrement important pour MonthlyIncome ou Age qui peuvent avoir des valeurs extrêmes.
 
-✅ **Pas de suppression** : Avec seulement ~4000 observations et un taux d'attrition de 15%, chaque observation compte. Supprimer des lignes réduirait la puissance statistique.
+[OUI] **Pas de suppression** : Avec seulement ~4000 observations et un taux d'attrition de 15%, chaque observation compte. Supprimer des lignes réduirait la puissance statistique.
 
-✅ **Traitement des 'NA' textuels** : Dans employee_survey_data, ce sont des non-réponses volontaires. L'imputation par la médiane évite de créer un biais (représente une "satisfaction neutre").
+[OUI] **Traitement des 'NA' textuels** : Dans employee_survey_data, ce sont des non-réponses volontaires. L'imputation par la médiane évite de créer un biais (représente une "satisfaction neutre").
 
 #### Code
 
 ```python
-# ❌ MAUVAIS (Section 5)
+# [NON] MAUVAIS (Section 5)
 imputer.fit_transform(df[['Age']])  # Fit sur tout le dataset
 
-# ✅ BON (Section 5bis)
+# [OUI] BON (Section 5bis)
 imputer.fit(X_train[['Age']])       # Fit sur train uniquement
 X_train_clean = imputer.transform(X_train[['Age']])
 X_test_clean = imputer.transform(X_test[['Age']])
@@ -305,11 +305,11 @@ X_test_clean = imputer.transform(X_test[['Age']])
 
 #### Justification
 
-✅ **Préserver l'information ordinale** : Des variables comme Education (1=Bac, 2=Licence, 3=Master) ont un ordre naturel. Label Encoding préserve cette relation.
+[OUI] **Préserver l'information ordinale** : Des variables comme Education (1=Bac, 2=Licence, 3=Master) ont un ordre naturel. Label Encoding préserve cette relation.
 
-✅ **Éviter les fausses relations** : Pour Department (Sales, R&D, HR), un encodage numérique créerait une relation d'ordre inexistante.
+[OUI] **Éviter les fausses relations** : Pour Department (Sales, R&D, HR), un encodage numérique créerait une relation d'ordre inexistante.
 
-✅ **Compromis dimensionnalité** : One-Hot augmente le nombre de features, mais reste gérable avec ~50 features finales.
+[OUI] **Compromis dimensionnalité** : One-Hot augmente le nombre de features, mais reste gérable avec ~50 features finales.
 
 #### Code
 
@@ -336,14 +336,14 @@ df = pd.get_dummies(df, columns=['Department'], drop_first=True)
 
 #### Justification
 
-✅ **StandardScaler vs MinMaxScaler** :
+[OUI] **StandardScaler vs MinMaxScaler** :
 - Préserve mieux la forme des distributions
 - Robuste aux outliers
 - Requis pour SVM et k-NN (distances euclidiennes)
 
-✅ **Après le split** : Éviter le data leakage (statistiques du test ne doivent pas influencer le train)
+[OUI] **Après le split** : Éviter le data leakage (statistiques du test ne doivent pas influencer le train)
 
-✅ **Avant SMOTE** : SMOTE génère des points par interpolation, qui doivent être dans un espace normalisé
+[OUI] **Avant SMOTE** : SMOTE génère des points par interpolation, qui doivent être dans un espace normalisé
 
 #### Formule
 
@@ -366,20 +366,20 @@ Où :
 
 #### Justification
 
-✅ **SMOTE vs autres techniques** :
+[OUI] **SMOTE vs autres techniques** :
 
 | Technique | Avantages | Inconvénients | Choix |
 |-----------|-----------|---------------|-------|
-| **SMOTE** | Données synthétiques réalistes | Peut créer outliers | ✅ Retenu |
-| Random Oversampling | Simple | Overfitting (duplication) | ❌ |
-| Random Undersampling | Simple | Perte d'information | ❌ |
-| class_weight | Pas de modification | Moins efficace | ❌ |
+| **SMOTE** | Données synthétiques réalistes | Peut créer outliers | [OUI] Retenu |
+| Random Oversampling | Simple | Overfitting (duplication) | [NON] |
+| Random Undersampling | Simple | Perte d'information | [NON] |
+| class_weight | Pas de modification | Moins efficace | [NON] |
 
-✅ **Uniquement sur train** : Le test set doit refléter la distribution réelle (15% attrition)
+[OUI] **Uniquement sur train** : Le test set doit refléter la distribution réelle (15% attrition)
 
-✅ **Impact sur les métriques** :
-- ⬆️ Recall (objectif principal)
-- ⬇️ légère de la Precision (acceptable)
+[OUI] **Impact sur les métriques** :
+- (hausse) Recall (objectif principal)
+- (baisse) légère de la Precision (acceptable)
 - ROC-AUC reste stable
 
 #### Principe de SMOTE
@@ -402,12 +402,12 @@ Où $\lambda \in [0, 1]$ est aléatoire.
 #### 1. Régression Logistique (Baseline)
 
 **Avantages** :
-- ✅ Interprétable (coefficients = importance)
-- ✅ Rapide (entraînement quasi-instantané)
-- ✅ Probabiliste (probabilités calibrées)
+- [OUI] Interprétable (coefficients = importance)
+- [OUI] Rapide (entraînement quasi-instantané)
+- [OUI] Probabiliste (probabilités calibrées)
 
 **Inconvénients** :
-- ❌ Linéaire (limité pour relations complexes)
+- [NON] Linéaire (limité pour relations complexes)
 
 **Utilisation** : Baseline, explications aux non-techniciens
 
@@ -416,12 +416,12 @@ Où $\lambda \in [0, 1]$ est aléatoire.
 #### 2. Arbre de Décision
 
 **Avantages** :
-- ✅ Très interprétable (visualisable)
-- ✅ Non-paramétrique
-- ✅ Gère les non-linéarités
+- [OUI] Très interprétable (visualisable)
+- [OUI] Non-paramétrique
+- [OUI] Gère les non-linéarités
 
 **Inconvénients** :
-- ❌ Overfitting (contrôlé par max_depth)
+- [NON] Overfitting (contrôlé par max_depth)
 
 **Hyperparamètres** :
 - `max_depth=10` : Limite la profondeur
@@ -429,13 +429,13 @@ Où $\lambda \in [0, 1]$ est aléatoire.
 
 ---
 
-#### 3. Random Forest ⭐ (Recommandé)
+#### 3. Random Forest ** (Recommandé)
 
 **Avantages** :
-- ✅ Robuste (moyenne de nombreux arbres)
-- ✅ Feature importance
-- ✅ Performant
-- ✅ Peu de tuning requis
+- [OUI] Robuste (moyenne de nombreux arbres)
+- [OUI] Feature importance
+- [OUI] Performant
+- [OUI] Peu de tuning requis
 
 **Pourquoi notre choix principal** :
 - Équilibre performance/interprétabilité
@@ -452,12 +452,12 @@ Où $\lambda \in [0, 1]$ est aléatoire.
 #### 4. Support Vector Machine (SVM)
 
 **Avantages** :
-- ✅ Excellent pouvoir de généralisation
-- ✅ Kernel trick (non-linéarités)
+- [OUI] Excellent pouvoir de généralisation
+- [OUI] Kernel trick (non-linéarités)
 
 **Inconvénients** :
-- ❌ Lent sur gros datasets
-- ❌ Difficile à tuner
+- [NON] Lent sur gros datasets
+- [NON] Difficile à tuner
 
 **Hyperparamètres** :
 - `kernel='rbf'` : Noyau gaussien
@@ -469,25 +469,25 @@ Où $\lambda \in [0, 1]$ est aléatoire.
 #### 5. K-Nearest Neighbors (k-NN)
 
 **Avantages** :
-- ✅ Simple conceptuellement
-- ✅ Non-paramétrique
+- [OUI] Simple conceptuellement
+- [OUI] Non-paramétrique
 
 **Inconvénients** :
-- ❌ Lent en prédiction
-- ❌ Curse of dimensionality
+- [NON] Lent en prédiction
+- [NON] Curse of dimensionality
 
 **Hyperparamètres** :
 - `n_neighbors=5` : Nombre de voisins (impair)
 
 ---
 
-#### 6. XGBoost ⭐ (Très performant)
+#### 6. XGBoost ** (Très performant)
 
 **Avantages** :
-- ✅ État de l'art (Kaggle)
-- ✅ Gradient Boosting optimisé
-- ✅ Feature importance
-- ✅ Gestion valeurs manquantes intégrée
+- [OUI] État de l'art (Kaggle)
+- [OUI] Gradient Boosting optimisé
+- [OUI] Feature importance
+- [OUI] Gestion valeurs manquantes intégrée
 
 **Pourquoi un top choix** :
 - Performances excellentes (ROC-AUC ~0.90)
@@ -504,9 +504,9 @@ Où $\lambda \in [0, 1]$ est aléatoire.
 #### 7. LightGBM
 
 **Avantages** :
-- ✅ Très rapide (> XGBoost sur gros datasets)
-- ✅ Efficacité mémoire (histogrammes)
-- ✅ Performant
+- [OUI] Très rapide (> XGBoost sur gros datasets)
+- [OUI] Efficacité mémoire (histogrammes)
+- [OUI] Performant
 
 **Quand l'utiliser** : Très gros datasets, contraintes de temps
 
@@ -516,13 +516,13 @@ Où $\lambda \in [0, 1]$ est aléatoire.
 
 | Algorithme | Performance | Vitesse | Interprétabilité | Overfitting |
 |------------|-------------|---------|------------------|-------------|
-| Logistic Reg | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | Faible |
-| Decision Tree | ⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | Élevé |
-| Random Forest | ⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐ | Faible |
-| SVM | ⭐⭐⭐⭐ | ⭐⭐ | ⭐⭐ | Modéré |
-| k-NN | ⭐⭐⭐ | ⭐⭐ | ⭐⭐⭐ | Modéré |
-| XGBoost | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐ | Faible* |
-| LightGBM | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐ | Faible* |
+| Logistic Reg | ****** | ********** | ********** | Faible |
+| Decision Tree | **** | ******** | ********** | Élevé |
+| Random Forest | ******** | ****** | ******** | Faible |
+| SVM | ******** | **** | **** | Modéré |
+| k-NN | ****** | **** | ****** | Modéré |
+| XGBoost | ********** | ****** | ****** | Faible* |
+| LightGBM | ********** | ******** | ****** | Faible* |
 
 \* Avec régularisation appropriée
 
@@ -541,8 +541,8 @@ Où $\lambda \in [0, 1]$ est aléatoire.
 
 |                | **Prédit: No** | **Prédit: Yes** |
 |----------------|----------------|-----------------|
-| **Réel: No**   | TN ✅          | FP ⚠️           |
-| **Réel: Yes**  | FN ❌          | TP ✅           |
+| **Réel: No**   | TN [OUI]          | FP [ATTENTION]           |
+| **Réel: Yes**  | FN [NON]          | TP [OUI]           |
 
 #### Formules
 
@@ -586,7 +586,7 @@ Aire sous la courbe ROC - Indépendant du seuil
 
 #### Pourquoi Stratified ?
 
-✅ **Préserve la distribution** de la variable cible dans chaque fold  
+[OUI] **Préserve la distribution** de la variable cible dans chaque fold  
 Crucial avec déséquilibre (15% attrition)
 
 #### Code
@@ -655,9 +655,9 @@ param_grid = {
 
 #### Avantages
 
-✅ Simple et rapide  
-✅ Scalable sur gros datasets  
-✅ Interprétable (centres = profils types)
+[OUI] Simple et rapide  
+[OUI] Scalable sur gros datasets  
+[OUI] Interprétable (centres = profils types)
 
 #### Détermination du K Optimal
 
@@ -688,11 +688,11 @@ Mesure : ratio dispersion intra / séparation inter
 
 ### Principes Appliqués
 
-✅ **Transparence** : Informer les employés de l'utilisation des analyses  
-✅ **Non-discrimination** : NE JAMAIS pénaliser un employé sur base d'une prédiction  
-✅ **Confidentialité** : Anonymisation stricte, agrégation minimum  
-✅ **Consentement** : Respecter le RGPD ou équivalents  
-✅ **Auditabilité** : Documenter tous les choix méthodologiques
+[OUI] **Transparence** : Informer les employés de l'utilisation des analyses  
+[OUI] **Non-discrimination** : NE JAMAIS pénaliser un employé sur base d'une prédiction  
+[OUI] **Confidentialité** : Anonymisation stricte, agrégation minimum  
+[OUI] **Consentement** : Respecter le RGPD ou équivalents  
+[OUI] **Auditabilité** : Documenter tous les choix méthodologiques
 
 ### Checklist Anti-Biais
 
@@ -742,9 +742,9 @@ Ouvrez directement le notebook et exécutez la première cellule qui installe au
 
 1. **Sections 1-4** : Configuration, chargement, EDA, feature engineering (~5 min)
 2. **Section 5** : Préparation split tardif (~30 sec)
-3. **Section 5bis** : Préparation split précoce ⭐ (~2-3 min)
+3. **Section 5bis** : Préparation split précoce ** (~2-3 min)
 4. **Section 6** : Modélisation (~5 min)
-5. **Section 5ter** : Comparaison méthodologique ⭐ (~1 min)
+5. **Section 5ter** : Comparaison méthodologique ** (~1 min)
 6. **Sections 7-10** : Optimisation, clustering, recommandations (~10 min)
 
 **Temps total** : ~25-30 minutes
@@ -761,7 +761,7 @@ Ouvrez directement le notebook et exécutez la première cellule qui installe au
 
 ### Visualisations
 
-✅ 30+ graphiques :
+[OUI] 30+ graphiques :
 - Distributions des variables
 - Matrices de confusion
 - Courbes ROC
@@ -771,15 +771,15 @@ Ouvrez directement le notebook et exécutez la première cellule qui installe au
 
 ### Modèles
 
-✅ 12 modèles entraînés :
+[OUI] 12 modèles entraînés :
 - 6 avec split tardif (Section 6)
 - 6 avec split précoce (Section 5bis)
 
 ### Analyses
 
-✅ Comparaison méthodologique détaillée  
-✅ TOP 5 facteurs d'attrition identifiés  
-✅ Plan d'action avec ROI estimé
+[OUI] Comparaison méthodologique détaillée  
+[OUI] TOP 5 facteurs d'attrition identifiés  
+[OUI] Plan d'action avec ROI estimé
 
 ---
 
@@ -906,10 +906,10 @@ Comparer quantitativement les performances des deux approches (split tardif vs p
 
 | Différence F1 | Verdict | Action |
 |---------------|---------|--------|
-| > 3% | 🚨 DATA LEAKAGE CRITIQUE | Utiliser UNIQUEMENT split précoce |
-| 1-3% | ⚠️ DATA LEAKAGE MODÉRÉ | Préférer split précoce |
-| 0-1% | ✅ Leakage NÉGLIGEABLE | Split précoce par précaution |
-| < 0% | ✅ Split Précoce MEILLEUR | Valider cohérence |
+| > 3% | [ALERTE] DATA LEAKAGE CRITIQUE | Utiliser UNIQUEMENT split précoce |
+| 1-3% | [ATTENTION] DATA LEAKAGE MODÉRÉ | Préférer split précoce |
+| 0-1% | [OUI] Leakage NÉGLIGEABLE | Split précoce par précaution |
+| < 0% | [OUI] Split Précoce MEILLEUR | Valider cohérence |
 
 ### 5.2.4 Modèles Sensibles au Leakage
 
@@ -1014,10 +1014,10 @@ def predict():
 
 ### Compétences Démontrées
 
-✅ **Rigueur Méthodologique** : Identification proactive d'un problème  
-✅ **Esprit Critique** : Remise en question du pipeline initial  
-✅ **Maîtrise Technique** : Application correcte fit/transform  
-✅ **Communication** : Documentation exhaustive
+[OUI] **Rigueur Méthodologique** : Identification proactive d'un problème  
+[OUI] **Esprit Critique** : Remise en question du pipeline initial  
+[OUI] **Maîtrise Technique** : Application correcte fit/transform  
+[OUI] **Communication** : Documentation exhaustive
 
 ### Différenciation
 
@@ -1145,18 +1145,18 @@ Pour le déploiement, XGBoost serait le choix final après optimisation complèt
 
 Ce projet a démontré :
 
-✅ **Rigueur méthodologique** : Identification et correction du data leakage  
-✅ **Maîtrise technique** : Implémentation de 2 pipelines complets  
-✅ **Esprit critique** : Comparaison quantitative des approches  
-✅ **Communication** : Documentation exhaustive et pédagogique  
-✅ **Impact business** : Recommandations actionnables avec ROI chiffré
+[OUI] **Rigueur méthodologique** : Identification et correction du data leakage  
+[OUI] **Maîtrise technique** : Implémentation de 2 pipelines complets  
+[OUI] **Esprit critique** : Comparaison quantitative des approches  
+[OUI] **Communication** : Documentation exhaustive et pédagogique  
+[OUI] **Impact business** : Recommandations actionnables avec ROI chiffré
 
 ## 9.2 Leçons Clés
 
 ### 1. Le Timing du Split est CRUCIAL
 
-❌ **Mauvais** : Données → Imputation → Encodage → Split  
-✅ **Bon** : Données → Split → Imputation → Encodage
+[NON] **Mauvais** : Données → Imputation → Encodage → Split  
+[OUI] **Bon** : Données → Split → Imputation → Encodage
 
 ### 2. FIT vs TRANSFORM
 
@@ -1265,4 +1265,4 @@ ipywidgets>=7.6.0
 
 ---
 
-**⭐ Fin de la Documentation Complète ⭐**
+**** Fin de la Documentation Complète ****

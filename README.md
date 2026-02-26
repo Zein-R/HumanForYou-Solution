@@ -1,12 +1,12 @@
-# 📊 Analyse Attrition - HumanForYou
+# Analyse Attrition - HumanForYou
 
 Projet d'analyse prédictive de l'attrition des employés pour une entreprise pharmaceutique de 4000 employés en Inde.
 
 ---
 
-## 📘 Documentation Complète
+## Documentation Complète
 
-👉 **[DOCUMENTATION_COMPLETE.md](DOCUMENTATION_COMPLETE.md)** - Documentation exhaustive (1100+ lignes)
+**[DOCUMENTATION_COMPLETE.md](DOCUMENTATION_COMPLETE.md)** - Documentation exhaustive (1100+ lignes)
 
 Contient toutes les informations sur :
 - Architecture et flux de données
@@ -17,7 +17,7 @@ Contient toutes les informations sur :
 
 ---
 
-## 🚀 Démarrage Rapide (5 minutes)
+## Démarrage Rapide (5 minutes)
 
 ```bash
 # 1. Installer les dépendances
@@ -32,23 +32,21 @@ jupyter notebook Employee_Attrition_Analysis.ipynb
 
 ---
 
-## 📊 Résultats Principaux
+## Résultats Principaux
 
 ### Performances des Modèles
 
 | Modèle | F1-Score | Recall | ROC-AUC |
 |--------|----------|--------|---------|
-| **Random Forest** ⭐ | 0.76 | 0.78 | 0.90 |
-| **XGBoost** | 0.76 | 0.80 | 0.89 |
-| LightGBM | 0.75 | 0.79 | 0.88 |
+| **Random Forest** (recommandé) | 0.76 | 0.78 | 0.90 |
 
 ### TOP 5 Facteurs d'Attrition
 
-1. 🕒 **WorkLifeBalance** - Équilibre vie pro/perso
-2. ✈️ **BusinessTravel** - Fréquence des déplacements
-3. 📈 **YearsSinceLastPromotion** - Stagnation de carrière
-4. 😊 **JobSatisfaction** - Satisfaction au travail
-5. 🚗 **DistanceFromHome** - Distance domicile-travail
+1. **WorkLifeBalance** - Équilibre vie pro/perso
+2. **BusinessTravel** - Fréquence des déplacements
+3. **YearsSinceLastPromotion** - Stagnation de carrière
+4. **JobSatisfaction** - Satisfaction au travail
+5. **DistanceFromHome** - Distance domicile-travail
 
 ### Impact Business
 
@@ -58,7 +56,7 @@ jupyter notebook Employee_Attrition_Analysis.ipynb
 
 ---
 
-## 📁 Structure du Projet
+## Structure du Projet
 
 ```
 HumanForYou Solution/
@@ -76,7 +74,7 @@ HumanForYou Solution/
 
 ---
 
-## 👨‍💻 Contexte
+## Contexte
 
 **Projet** : FISA INFO 2023-2026 - BLOC VIII IA & Machine Learning  
 **Date** : Février 2026  
