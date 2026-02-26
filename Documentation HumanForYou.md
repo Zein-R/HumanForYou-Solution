@@ -83,7 +83,7 @@ HumanForYou Solution/
 │   ├── Section 3: EDA (Analyse Exploratoire)
 │   ├── Section 4: Feature Engineering
 │   │
-│   ├── Section 5: Préparation (Split Tardif) [ATTENTION] Avec data leakage
+│   ├── Section 5: Préparation (Split Tardif) Avec data leakage
 │   ├── Section 5bis: Préparation (Split Précoce) [BEST PRACTICE]
 │   ├── Section 5ter: Comparaison Méthodologique [ANALYSE]
 │   │
@@ -137,7 +137,7 @@ HumanForYou Solution/
 
 ## 2.1 Flux de Données - Comparaison des Approches
 
-### [ATTENTION] Approche 1: Split Tardif (Section 5) - Avec Data Leakage
+### Approche 1: Split Tardif (Section 5) - Avec Data Leakage
 
 ```
 ┌─────────────────────────────────────────────────────────┐
@@ -146,13 +146,13 @@ HumanForYou Solution/
 └─────────────────────────────────────────────────────────┘
                         ↓
 ┌─────────────────────────────────────────────────────────┐
-│  [ALERTE] ÉTAPE 2: Imputation (SUR TOUT LE DATASET)          │
+│  ÉTAPE 2: Imputation (SUR TOUT LE DATASET)          │
 │  Calcul médiane/mode sur 4410 lignes                    │
 │  → Inclut les données du futur test set!                │
 └─────────────────────────────────────────────────────────┘
                         ↓
 ┌─────────────────────────────────────────────────────────┐
-│  [ALERTE] ÉTAPE 3: Encodage (SUR TOUT LE DATASET)            │
+│  ÉTAPE 3: Encodage (SUR TOUT LE DATASET)            │
 │  LabelEncoder.fit() sur 4410 lignes                     │
 │  → L'encodeur voit toutes les catégories!               │
 └─────────────────────────────────────────────────────────┘
@@ -164,7 +164,7 @@ HumanForYou Solution/
 └─────────────────────────────────────────────────────────┘
                         ↓
 ┌─────────────────────────────────────────────────────────┐
-│  [OUI] ÉTAPE 5: Standardisation + SMOTE (CORRECT)         │
+│  ÉTAPE 5: Standardisation + SMOTE (CORRECT)         │
 │  Fit sur train, transform sur test                      │
 └─────────────────────────────────────────────────────────┘
                         ↓
@@ -173,7 +173,7 @@ HumanForYou Solution/
 └─────────────────────────────────────────────────────────┘
 ```
 
-### [OUI] Approche 2: Split Précoce (Section 5bis) - Best Practice
+### Approche 2: Split Précoce (Section 5bis) - Best Practice
 
 ```
 ┌─────────────────────────────────────────────────────────┐
@@ -182,25 +182,25 @@ HumanForYou Solution/
 └─────────────────────────────────────────────────────────┘
                         ↓
 ┌─────────────────────────────────────────────────────────┐
-│  [OUI] ÉTAPE 2: Split IMMÉDIAT (AVANT transformations)    │
+│  ÉTAPE 2: Split IMMÉDIAT (AVANT transformations)    │
 │  Train: 3528 (80%) | Test: 882 (20%)                    │
 │  → Séparation complète dès le départ                    │
 └─────────────────────────────────────────────────────────┘
                         ↓
 ┌─────────────────────────────────────────────────────────┐
-│  [OUI] ÉTAPE 3: Imputation (FIT train, TRANSFORM test)    │
+│  ÉTAPE 3: Imputation (FIT train, TRANSFORM test)    │
 │  Médiane/mode calculés sur train uniquement             │
 │  → Test n'influence PAS les statistiques                │
 └─────────────────────────────────────────────────────────┘
                         ↓
 ┌─────────────────────────────────────────────────────────┐
-│  [OUI] ÉTAPE 4: Encodage (FIT train, TRANSFORM test)      │
+│  ÉTAPE 4: Encodage (FIT train, TRANSFORM test)      │
 │  LabelEncoder fit sur train uniquement                  │
 │  → Gestion des catégories inconnues                     │
 └─────────────────────────────────────────────────────────┘
                         ↓
 ┌─────────────────────────────────────────────────────────┐
-│  [OUI] ÉTAPE 5: Standardisation + SMOTE                   │
+│  ÉTAPE 5: Standardisation + SMOTE                   │
 │  Toutes transformations basées sur train                │
 └─────────────────────────────────────────────────────────┘
                         ↓
@@ -217,8 +217,8 @@ HumanForYou Solution/
 
 ```python
 # Données préparées
-df_clean          # Après imputation (4410 lignes) - [NON] Leakage
-df_encoded        # Après encodage (4410 lignes) - [NON] Leakage
+df_clean          # Après imputation (4410 lignes) - Leakage
+df_encoded        # Après encodage (4410 lignes) - Leakage
 
 # Après split et transformations
 X_train_scaled, X_test_scaled     # Standardisés
@@ -276,19 +276,19 @@ comparison_df                     # Fusion + différences calculées
 
 #### Justification
 
-[OUI] **Médiane vs Moyenne** : La médiane est plus robuste aux outliers, particulièrement important pour MonthlyIncome ou Age qui peuvent avoir des valeurs extrêmes.
+**Médiane vs Moyenne** : La médiane est plus robuste aux outliers, particulièrement important pour MonthlyIncome ou Age qui peuvent avoir des valeurs extrêmes.
 
-[OUI] **Pas de suppression** : Avec seulement ~4000 observations et un taux d'attrition de 15%, chaque observation compte. Supprimer des lignes réduirait la puissance statistique.
+**Pas de suppression** : Avec seulement ~4000 observations et un taux d'attrition de 15%, chaque observation compte. Supprimer des lignes réduirait la puissance statistique.
 
-[OUI] **Traitement des 'NA' textuels** : Dans employee_survey_data, ce sont des non-réponses volontaires. L'imputation par la médiane évite de créer un biais (représente une "satisfaction neutre").
+**Traitement des 'NA' textuels** : Dans employee_survey_data, ce sont des non-réponses volontaires. L'imputation par la médiane évite de créer un biais (représente une "satisfaction neutre").
 
 #### Code
 
 ```python
-# [NON] MAUVAIS (Section 5)
+# MAUVAIS (Section 5)
 imputer.fit_transform(df[['Age']])  # Fit sur tout le dataset
 
-# [OUI] BON (Section 5bis)
+# BON (Section 5bis)
 imputer.fit(X_train[['Age']])       # Fit sur train uniquement
 X_train_clean = imputer.transform(X_train[['Age']])
 X_test_clean = imputer.transform(X_test[['Age']])
@@ -305,11 +305,11 @@ X_test_clean = imputer.transform(X_test[['Age']])
 
 #### Justification
 
-[OUI] **Préserver l'information ordinale** : Des variables comme Education (1=Bac, 2=Licence, 3=Master) ont un ordre naturel. Label Encoding préserve cette relation.
+**Préserver l'information ordinale** : Des variables comme Education (1=Bac, 2=Licence, 3=Master) ont un ordre naturel. Label Encoding préserve cette relation.
 
-[OUI] **Éviter les fausses relations** : Pour Department (Sales, R&D, HR), un encodage numérique créerait une relation d'ordre inexistante.
+**Éviter les fausses relations** : Pour Department (Sales, R&D, HR), un encodage numérique créerait une relation d'ordre inexistante.
 
-[OUI] **Compromis dimensionnalité** : One-Hot augmente le nombre de features, mais reste gérable avec ~50 features finales.
+**Compromis dimensionnalité** : One-Hot augmente le nombre de features, mais reste gérable avec ~50 features finales.
 
 #### Code
 
@@ -336,14 +336,14 @@ df = pd.get_dummies(df, columns=['Department'], drop_first=True)
 
 #### Justification
 
-[OUI] **StandardScaler vs MinMaxScaler** :
+**StandardScaler vs MinMaxScaler** :
 - Préserve mieux la forme des distributions
 - Robuste aux outliers
 - Requis pour SVM et k-NN (distances euclidiennes)
 
-[OUI] **Après le split** : Éviter le data leakage (statistiques du test ne doivent pas influencer le train)
+**Après le split** : Éviter le data leakage (statistiques du test ne doivent pas influencer le train)
 
-[OUI] **Avant SMOTE** : SMOTE génère des points par interpolation, qui doivent être dans un espace normalisé
+**Avant SMOTE** : SMOTE génère des points par interpolation, qui doivent être dans un espace normalisé
 
 #### Formule
 
@@ -366,18 +366,18 @@ Où :
 
 #### Justification
 
-[OUI] **SMOTE vs autres techniques** :
+**SMOTE vs autres techniques** :
 
 | Technique | Avantages | Inconvénients | Choix |
 |-----------|-----------|---------------|-------|
-| **SMOTE** | Données synthétiques réalistes | Peut créer outliers | [OUI] Retenu |
-| Random Oversampling | Simple | Overfitting (duplication) | [NON] |
-| Random Undersampling | Simple | Perte d'information | [NON] |
-| class_weight | Pas de modification | Moins efficace | [NON] |
+| **SMOTE** | Données synthétiques réalistes | Peut créer outliers | Retenu |
+| Random Oversampling | Simple | Overfitting (duplication) | |
+| Random Undersampling | Simple | Perte d'information | |
+| class_weight | Pas de modification | Moins efficace | |
 
-[OUI] **Uniquement sur train** : Le test set doit refléter la distribution réelle (15% attrition)
+**Uniquement sur train** : Le test set doit refléter la distribution réelle (15% attrition)
 
-[OUI] **Impact sur les métriques** :
+**Impact sur les métriques** :
 - (hausse) Recall (objectif principal)
 - (baisse) légère de la Precision (acceptable)
 - ROC-AUC reste stable
@@ -402,12 +402,12 @@ Où $\lambda \in [0, 1]$ est aléatoire.
 #### 1. Régression Logistique (Baseline)
 
 **Avantages** :
-- [OUI] Interprétable (coefficients = importance)
-- [OUI] Rapide (entraînement quasi-instantané)
-- [OUI] Probabiliste (probabilités calibrées)
+- Interprétable (coefficients = importance)
+- Rapide (entraînement quasi-instantané)
+- Probabiliste (probabilités calibrées)
 
 **Inconvénients** :
-- [NON] Linéaire (limité pour relations complexes)
+- Linéaire (limité pour relations complexes)
 
 **Utilisation** : Baseline, explications aux non-techniciens
 
@@ -416,12 +416,12 @@ Où $\lambda \in [0, 1]$ est aléatoire.
 #### 2. Arbre de Décision
 
 **Avantages** :
-- [OUI] Très interprétable (visualisable)
-- [OUI] Non-paramétrique
-- [OUI] Gère les non-linéarités
+- Très interprétable (visualisable)
+- Non-paramétrique
+- Gère les non-linéarités
 
 **Inconvénients** :
-- [NON] Overfitting (contrôlé par max_depth)
+- Overfitting (contrôlé par max_depth)
 
 **Hyperparamètres** :
 - `max_depth=10` : Limite la profondeur
@@ -432,10 +432,10 @@ Où $\lambda \in [0, 1]$ est aléatoire.
 #### 3. Random Forest ** (Recommandé)
 
 **Avantages** :
-- [OUI] Robuste (moyenne de nombreux arbres)
-- [OUI] Feature importance
-- [OUI] Performant
-- [OUI] Peu de tuning requis
+- Robuste (moyenne de nombreux arbres)
+- Feature importance
+- Performant
+- Peu de tuning requis
 
 **Pourquoi notre choix principal** :
 - Équilibre performance/interprétabilité
@@ -452,12 +452,12 @@ Où $\lambda \in [0, 1]$ est aléatoire.
 #### 4. Support Vector Machine (SVM)
 
 **Avantages** :
-- [OUI] Excellent pouvoir de généralisation
-- [OUI] Kernel trick (non-linéarités)
+- Excellent pouvoir de généralisation
+- Kernel trick (non-linéarités)
 
 **Inconvénients** :
-- [NON] Lent sur gros datasets
-- [NON] Difficile à tuner
+- Lent sur gros datasets
+- Difficile à tuner
 
 **Hyperparamètres** :
 - `kernel='rbf'` : Noyau gaussien
@@ -469,12 +469,12 @@ Où $\lambda \in [0, 1]$ est aléatoire.
 #### 5. K-Nearest Neighbors (k-NN)
 
 **Avantages** :
-- [OUI] Simple conceptuellement
-- [OUI] Non-paramétrique
+- Simple conceptuellement
+- Non-paramétrique
 
 **Inconvénients** :
-- [NON] Lent en prédiction
-- [NON] Curse of dimensionality
+- Lent en prédiction
+- Curse of dimensionality
 
 **Hyperparamètres** :
 - `n_neighbors=5` : Nombre de voisins (impair)
@@ -484,10 +484,10 @@ Où $\lambda \in [0, 1]$ est aléatoire.
 #### 6. XGBoost ** (Très performant)
 
 **Avantages** :
-- [OUI] État de l'art (Kaggle)
-- [OUI] Gradient Boosting optimisé
-- [OUI] Feature importance
-- [OUI] Gestion valeurs manquantes intégrée
+- État de l'art (Kaggle)
+- Gradient Boosting optimisé
+- Feature importance
+- Gestion valeurs manquantes intégrée
 
 **Pourquoi un top choix** :
 - Performances excellentes (ROC-AUC ~0.90)
@@ -504,9 +504,9 @@ Où $\lambda \in [0, 1]$ est aléatoire.
 #### 7. LightGBM
 
 **Avantages** :
-- [OUI] Très rapide (> XGBoost sur gros datasets)
-- [OUI] Efficacité mémoire (histogrammes)
-- [OUI] Performant
+- Très rapide (> XGBoost sur gros datasets)
+- Efficacité mémoire (histogrammes)
+- Performant
 
 **Quand l'utiliser** : Très gros datasets, contraintes de temps
 
@@ -541,8 +541,8 @@ Où $\lambda \in [0, 1]$ est aléatoire.
 
 |                | **Prédit: No** | **Prédit: Yes** |
 |----------------|----------------|-----------------|
-| **Réel: No**   | TN [OUI]          | FP [ATTENTION]           |
-| **Réel: Yes**  | FN [NON]          | TP [OUI]           |
+| **Réel: No**   | TN | FP |
+| **Réel: Yes**  | FN | TP |
 
 #### Formules
 
@@ -586,7 +586,7 @@ Aire sous la courbe ROC - Indépendant du seuil
 
 #### Pourquoi Stratified ?
 
-[OUI] **Préserve la distribution** de la variable cible dans chaque fold  
+**Préserve la distribution** de la variable cible dans chaque fold  
 Crucial avec déséquilibre (15% attrition)
 
 #### Code
@@ -635,7 +635,7 @@ param_grid = {
 | `AvgArrivalTime` | $\frac{\sum arrival}{n}$ | Heure moyenne arrivée |
 | `AvgDepartureTime` | $\frac{\sum departure}{n}$ | Heure moyenne départ |
 | `LateArrivals` | $\sum \mathbb{1}(arrival > 9:30)$ | Nombre de retards |
-| `EarlyDepartures` | $\sum \mathbb{1}(departure < 17:00)$ | Départs précoces |
+| `EarlyDepartures` | $\sum \mathbb{1}(departure < 18:30)$ | Départs précoces |
 | `WorkdaysPresent` | $\sum \mathbb{1}(present)$ | Jours travaillés |
 
 ### Features Dérivées
@@ -655,9 +655,9 @@ param_grid = {
 
 #### Avantages
 
-[OUI] Simple et rapide  
-[OUI] Scalable sur gros datasets  
-[OUI] Interprétable (centres = profils types)
+Simple et rapide  
+Scalable sur gros datasets  
+Interprétable (centres = profils types)
 
 #### Détermination du K Optimal
 
@@ -688,11 +688,11 @@ Mesure : ratio dispersion intra / séparation inter
 
 ### Principes Appliqués
 
-[OUI] **Transparence** : Informer les employés de l'utilisation des analyses  
-[OUI] **Non-discrimination** : NE JAMAIS pénaliser un employé sur base d'une prédiction  
-[OUI] **Confidentialité** : Anonymisation stricte, agrégation minimum  
-[OUI] **Consentement** : Respecter le RGPD ou équivalents  
-[OUI] **Auditabilité** : Documenter tous les choix méthodologiques
+**Transparence** : Informer les employés de l'utilisation des analyses  
+**Non-discrimination** : NE JAMAIS pénaliser un employé sur base d'une prédiction  
+**Confidentialité** : Anonymisation stricte, agrégation minimum  
+**Consentement** : Respecter le RGPD ou équivalents  
+**Auditabilité** : Documenter tous les choix méthodologiques
 
 ### Checklist Anti-Biais
 
@@ -761,7 +761,7 @@ Ouvrez directement le notebook et exécutez la première cellule qui installe au
 
 ### Visualisations
 
-[OUI] 30+ graphiques :
+30+ graphiques :
 - Distributions des variables
 - Matrices de confusion
 - Courbes ROC
@@ -771,15 +771,15 @@ Ouvrez directement le notebook et exécutez la première cellule qui installe au
 
 ### Modèles
 
-[OUI] 12 modèles entraînés :
+12 modèles entraînés :
 - 6 avec split tardif (Section 6)
 - 6 avec split précoce (Section 5bis)
 
 ### Analyses
 
-[OUI] Comparaison méthodologique détaillée  
-[OUI] TOP 5 facteurs d'attrition identifiés  
-[OUI] Plan d'action avec ROI estimé
+Comparaison méthodologique détaillée  
+TOP 5 facteurs d'attrition identifiés  
+Plan d'action avec ROI estimé
 
 ---
 
@@ -906,10 +906,10 @@ Comparer quantitativement les performances des deux approches (split tardif vs p
 
 | Différence F1 | Verdict | Action |
 |---------------|---------|--------|
-| > 3% | [ALERTE] DATA LEAKAGE CRITIQUE | Utiliser UNIQUEMENT split précoce |
-| 1-3% | [ATTENTION] DATA LEAKAGE MODÉRÉ | Préférer split précoce |
-| 0-1% | [OUI] Leakage NÉGLIGEABLE | Split précoce par précaution |
-| < 0% | [OUI] Split Précoce MEILLEUR | Valider cohérence |
+| > 3% | DATA LEAKAGE CRITIQUE | Utiliser UNIQUEMENT split précoce |
+| 1-3% | DATA LEAKAGE MODÉRÉ | Préférer split précoce |
+| 0-1% | Leakage NÉGLIGEABLE | Split précoce par précaution |
+| < 0% | Split Précoce MEILLEUR | Valider cohérence |
 
 ### 5.2.4 Modèles Sensibles au Leakage
 
@@ -1014,10 +1014,10 @@ def predict():
 
 ### Compétences Démontrées
 
-[OUI] **Rigueur Méthodologique** : Identification proactive d'un problème  
-[OUI] **Esprit Critique** : Remise en question du pipeline initial  
-[OUI] **Maîtrise Technique** : Application correcte fit/transform  
-[OUI] **Communication** : Documentation exhaustive
+**Rigueur Méthodologique** : Identification proactive d'un problème  
+**Esprit Critique** : Remise en question du pipeline initial  
+**Maîtrise Technique** : Application correcte fit/transform  
+**Communication** : Documentation exhaustive
 
 ### Différenciation
 
@@ -1145,18 +1145,18 @@ Pour le déploiement, XGBoost serait le choix final après optimisation complèt
 
 Ce projet a démontré :
 
-[OUI] **Rigueur méthodologique** : Identification et correction du data leakage  
-[OUI] **Maîtrise technique** : Implémentation de 2 pipelines complets  
-[OUI] **Esprit critique** : Comparaison quantitative des approches  
-[OUI] **Communication** : Documentation exhaustive et pédagogique  
-[OUI] **Impact business** : Recommandations actionnables avec ROI chiffré
+**Rigueur méthodologique** : Identification et correction du data leakage  
+**Maîtrise technique** : Implémentation de 2 pipelines complets  
+**Esprit critique** : Comparaison quantitative des approches  
+**Communication** : Documentation exhaustive et pédagogique  
+**Impact business** : Recommandations actionnables avec ROI chiffré
 
 ## 9.2 Leçons Clés
 
 ### 1. Le Timing du Split est CRUCIAL
 
-[NON] **Mauvais** : Données → Imputation → Encodage → Split  
-[OUI] **Bon** : Données → Split → Imputation → Encodage
+**Mauvais** : Données → Imputation → Encodage → Split  
+**Bon** : Données → Split → Imputation → Encodage
 
 ### 2. FIT vs TRANSFORM
 

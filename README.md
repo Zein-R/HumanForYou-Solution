@@ -1,4 +1,4 @@
-# Analyse Attrition - HumanForYou
+﻿# Analyse Attrition - HumanForYou
 
 Projet d'analyse prédictive de l'attrition des employés pour une entreprise pharmaceutique de 4000 employés en Inde.
 
@@ -6,7 +6,7 @@ Projet d'analyse prédictive de l'attrition des employés pour une entreprise ph
 
 ## Documentation Complète
 
-**[DOCUMENTATION_COMPLETE.md](DOCUMENTATION_COMPLETE.md)** - Documentation exhaustive (1100+ lignes)
+**[Documentation HumanForYou.md](Documentation%20HumanForYou.md)** - Documentation exhaustive (1100+ lignes)
 
 Contient toutes les informations sur :
 - Architecture et flux de données
@@ -61,7 +61,7 @@ jupyter notebook Employee_Attrition_Analysis.ipynb
 ```
 HumanForYou Solution/
 ├── Employee_Attrition_Analysis.ipynb  # Notebook principal (4400+ lignes)
-├── DOCUMENTATION_COMPLETE.md          # Documentation exhaustive
+├── Documentation HumanForYou.md       # Documentation exhaustive
 ├── README.md                          # Ce fichier
 ├── requirements.txt                   # Dépendances Python
 └── dataset/                           # 5 fichiers CSV (4410 lignes)
@@ -76,10 +76,10 @@ HumanForYou Solution/
 
 ## Contexte
 
-**Projet** : FISA INFO 2023-2026 - BLOC VIII IA & Machine Learning  
+**Projet** : Machine Learning AI
 **Date** : Février 2026  
 **Méthodologie** : Split précoce (best practices ML + analyse comparative du data leakage)
 
 ---
 
-Pour toute information détaillée, consultez [DOCUMENTATION_COMPLETE.md](DOCUMENTATION_COMPLETE.md).
+Pour toute information détaillée, consultez [Documentation HumanForYou.md](Documentation%20HumanForYou.md).
