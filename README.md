@@ -1,70 +1,70 @@
-﻿# Analyse Attrition - HumanForYou
+# Attrition Analysis - HumanForYou
 
-Projet d'analyse prédictive de l'attrition des employés pour une entreprise pharmaceutique de 4000 employés en Inde.
-
----
-
-## Documentation Complète
-
-**[Documentation HumanForYou.md](Documentation%20HumanForYou.md)** - Documentation exhaustive (1100+ lignes)
-
-Contient toutes les informations sur :
-- Architecture et flux de données
-- Méthodologie et justifications complètes
-- Guides d'installation et d'utilisation
-- Comparaison des approches (data leakage)
-- Références et FAQ pour soutenance
+Predictive analysis project on employee attrition for a pharmaceutical company of 4,000 employees in India.
 
 ---
 
-## Démarrage Rapide (5 minutes)
+## Full Documentation
+
+**[Documentation HumanForYou.md](Documentation%20HumanForYou.md)** - Exhaustive documentation (1100+ lines)
+
+Contains all the details on:
+- Architecture and data flow
+- Methodology and full justifications
+- Installation and usage guides
+- Comparison of approaches (data leakage)
+- References and FAQ for the project defense
+
+---
+
+## Quick Start (5 minutes)
 
 ```bash
-# 1. Installer les dépendances
+# 1. Install dependencies
 pip install -r requirements.txt
 
-# 2. Lancer le notebook
+# 2. Launch the notebook
 jupyter notebook Employee_Attrition_Analysis.ipynb
 
-# 3. Exécuter toutes les cellules
-# Temps d'exécution : ~25-30 minutes
+# 3. Run all cells
+# Execution time: ~25-30 minutes
 ```
 
 ---
 
-## Résultats Principaux
+## Key Results
 
-### Performances des Modèles
+### Model Performance
 
-| Modèle | F1-Score | Recall | ROC-AUC |
+| Model | F1-Score | Recall | ROC-AUC |
 |--------|----------|--------|---------|
-| **Random Forest** (recommandé) | 0.76 | 0.78 | 0.90 |
+| **Random Forest** (recommended) | 0.76 | 0.78 | 0.90 |
 
-### TOP 5 Facteurs d'Attrition
+### Top 5 Attrition Drivers
 
-1. **WorkLifeBalance** - Équilibre vie pro/perso
-2. **BusinessTravel** - Fréquence des déplacements
-3. **YearsSinceLastPromotion** - Stagnation de carrière
-4. **JobSatisfaction** - Satisfaction au travail
-5. **DistanceFromHome** - Distance domicile-travail
+1. **WorkLifeBalance** - Work/life balance
+2. **BusinessTravel** - Frequency of business travel
+3. **YearsSinceLastPromotion** - Career stagnation
+4. **JobSatisfaction** - Job satisfaction
+5. **DistanceFromHome** - Distance between home and workplace
 
-### Impact Business
+### Business Impact
 
-- **Réduction ciblée** : 15% → 10% en 24 mois
-- **Économies estimées** : 12M€/an
-- **ROI** : ×3 (investissement 3-4M€/an)
+- **Targeted reduction**: 15% → 10% over 24 months
+- **Estimated savings**: €12M/year
+- **ROI**: ×3 (€3-4M/year investment)
 
 ---
 
-## Structure du Projet
+## Project Structure
 
 ```
 HumanForYou Solution/
-├── Employee_Attrition_Analysis.ipynb  # Notebook principal (4400+ lignes)
-├── Documentation HumanForYou.md       # Documentation exhaustive
-├── README.md                          # Ce fichier
-├── requirements.txt                   # Dépendances Python
-└── dataset/                           # 5 fichiers CSV (4410 lignes)
+├── Employee_Attrition_Analysis.ipynb  # Main notebook (4400+ lines)
+├── Documentation HumanForYou.md       # Full documentation
+├── README.md                          # This file
+├── requirements.txt                   # Python dependencies
+└── dataset/                           # 5 CSV files (4410 rows)
     ├── general_data.csv
     ├── manager_survey_data.csv
     ├── employee_survey_data.csv
@@ -72,14 +72,35 @@ HumanForYou Solution/
     └── out_time.csv
 ```
 
+## Data
+
+| File | Description | Rows | Variables |
+|---------|-------------|--------|-----------|
+| `general_data.csv` | Demographic and professional data | 4410 | 26 |
+| `manager_survey_data.csv` | Manager evaluations (February 2015) | 4410 | 3 |
+| `employee_survey_data.csv` | Satisfaction survey (June 2015) | 4410 | 4 |
+| `in_time.csv` | 2015 clock-in times | 4000 | 262 |
+| `out_time.csv` | 2015 clock-out times | 4000 | 262 |
+
+Target variable: **Attrition** (Yes/No) — whether the employee left the company in 2016.
+
+## Tech stack
+
+- Python (Jupyter notebook)
+- pandas, numpy for data handling
+- matplotlib, seaborn, plotly for visualization
+- scikit-learn, imbalanced-learn, xgboost, lightgbm for modeling
+- statsmodels, scipy for statistics
+
+See `requirements.txt` for exact package versions.
+
+## Context
+
+**Project**: AI & Machine Learning
+**Date**: February 2026
+**Authors**: Zein, Saheen, Téo, Noan
+**Methodology**: early split (ML best practices + comparative analysis of data leakage)
+
 ---
 
-## Contexte
-
-**Projet** : Machine Learning AI
-**Date** : Février 2026  
-**Méthodologie** : Split précoce (best practices ML + analyse comparative du data leakage)
-
----
-
-Pour toute information détaillée, consultez [Documentation HumanForYou.md](Documentation%20HumanForYou.md).
+For detailed information, see [Documentation HumanForYou.md](Documentation%20HumanForYou.md).
